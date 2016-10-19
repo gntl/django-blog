@@ -67,3 +67,11 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     redirect('post_list')
+
+
+@login_required
+def post_unpublish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.published_date = None
+    post.save()
+    return redirect('blog.views.post_detail', pk=pk)
